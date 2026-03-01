@@ -13,15 +13,18 @@ public class BaseTest {
 
     public AndroidDriver driver;
 
+
     @BeforeClass
     public void setUp() throws MalformedURLException {
         UiAutomator2Options options = new UiAutomator2Options();
         options.setDeviceName("emulator-5554");
         options.setPlatformName("Android");
-        options.setAppPackage("org.wikipedia");
+        options.setAppPackage("org.wikipedia.alpha");
         options.setAppActivity("org.wikipedia.main.MainActivity");
         options.setNoReset(true);
         options.setAutoGrantPermissions(true);
+        options.setCapability("appium:uiautomator2ServerLaunchTimeout", 60000);
+        options.setCapability("appium:adbExecTimeout", 60000);
 
         driver = new AndroidDriver(new URL("http://127.0.0.1:4723"), options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));

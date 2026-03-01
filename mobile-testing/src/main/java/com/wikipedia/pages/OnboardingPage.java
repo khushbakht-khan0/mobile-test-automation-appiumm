@@ -10,7 +10,7 @@ public class OnboardingPage {
 
     AndroidDriver driver;
 
-    @AndroidFindBy(id = "org.wikipedia:id/fragment_onboarding_skip_button")
+    @AndroidFindBy(id = "org.wikipedia.alpha:id/fragment_onboarding_skip_button")
     private WebElement skipButton;
 
     public OnboardingPage(AndroidDriver driver) {
