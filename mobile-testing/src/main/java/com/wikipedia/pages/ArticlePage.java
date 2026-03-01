@@ -10,10 +10,10 @@ public class ArticlePage {
 
     AndroidDriver driver;
 
-    @AndroidFindBy(id = "org.wikipedia:id/view_page_title_text")
+    @AndroidFindBy(id = "org.wikipedia.alpha:id/articleTitle")
     private WebElement articleTitle;
 
-    @AndroidFindBy(accessibility = "Save")
+    @AndroidFindBy(accessibility = "org.wikipedia.alpha:id/page_save")
     private WebElement saveButton;
 
     public ArticlePage(AndroidDriver driver) {
