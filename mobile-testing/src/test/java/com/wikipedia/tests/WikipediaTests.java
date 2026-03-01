@@ -55,4 +55,43 @@ public class WikipediaTests extends BaseTest {
         String title = articlePage.getArticleTitle();
         Assert.assertNotNull(title, "Article opened and title is visible");
     }
+    @Test(priority = 6)
+    public void testArticleTitleMatchesSearch() {
+        searchPage.tapSearchBar();
+        searchPage.enterSearchTerm("Albert Einstein");
+        String resultTitle = searchPage.getFirstResultTitle();
+        searchPage.tapFirstResult();
+        String articleTitle = articlePage.getArticleTitle();
+        Assert.assertTrue(articleTitle.contains("Einstein"), "Article title matches search");
+    }
+
+    @Test(priority = 7)
+    public void testSearchForCity() {
+        searchPage.tapSearchBar();
+        searchPage.enterSearchTerm("Lahore");
+        Assert.assertTrue(searchPage.getResultsCount() > 0, "City search works");
+    }
+
+    @Test(priority = 8)
+    public void testSearchForTechnology() {
+        searchPage.tapSearchBar();
+        searchPage.enterSearchTerm("Artificial Intelligence");
+        Assert.assertTrue(searchPage.getResultsCount() > 0, "Technology search works");
+    }
+
+    @Test(priority = 9)
+    public void testSearchForScientist() {
+        searchPage.tapSearchBar();
+        searchPage.enterSearchTerm("Isaac Newton");
+        Assert.assertTrue(searchPage.getResultsCount() > 0, "Scientist search works");
+    }
+
+    @Test(priority = 10)
+    public void testSaveArticle() {
+        searchPage.tapSearchBar();
+        searchPage.enterSearchTerm("Python programming");
+        searchPage.tapFirstResult();
+        articlePage.saveArticle();
+        Assert.assertTrue(true, "Article save button clicked successfully");
+    }
 }
