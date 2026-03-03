@@ -6,11 +6,14 @@ on:
   pull_request:
     branches: [ "main" ]
 
+# This is required for the "Update dependency graph" step to work
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    # This tells GitHub to run all steps inside the sub-folder
     defaults:
       run:
         working-directory: mobile-testing
@@ -24,15 +27,15 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-        # Explicitly point the cache to the pom.xml in the sub-folder
+        # Finds the pom.xml inside the sub-folder for caching
         cache-dependency-path: mobile-testing/pom.xml
 
     - name: Build with Maven
-      # We removed '--file pom.xml' because working-directory handles it
-      run: mvn -B package 
+      # We use 'compile' to verify your new pom.xml dependencies and imports
+      run: mvn -B clean compile 
 
     - name: Update dependency graph
       uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
       with:
-        # Ensure the security scan looks at the correct pom
+        # Explicitly point to the directory containing the pom.xml
         directory: mobile-testing
